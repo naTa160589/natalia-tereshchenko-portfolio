@@ -1,235 +1,275 @@
-/* Netflix-inspired styles for portfolio website */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap');
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Natalia Tereshchenko Portfolio</title>
+ <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.22.5/babel.min.js"></script>
+ <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+ <div id="root"></div>
+ <script type="text/babel">
+   const { useState } = React;
 
-/* Global Styles */
-body {
-  background-color: #141414; /* Netflix dark background */
-  color: #ffffff;
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  overflow-x: hidden;
-}
+   // Sample portfolio data (to be replaced with portfolio.json)
+   const portfolioData = {
+     hero: {
+       title: "Natalia",
+       videoUrl: "https://example.com/hero-animation.mp4",
+       description: "AI Prompt Engineer & Digital Content Creator from Ukraine, based in Austria"
+     },
+     featuredProjects: [
+       {
+         id: "prompt-engineering",
+         title: "Prompt Engineering Mastery",
+         description: "Developed precise prompts for ChatGPT, MidJourney, Runway, Kaiber, D-ID.",
+         posterUrl: "https://example.com/posters/prompt-engineering.jpg",
+         videoUrl: "https://example.com/videos/prompt-engineering.mp4",
+         details: "Crafted prompts to generate text, images, and videos, optimizing AI outputs."
+       },
+       {
+         id: "ai-image-creation",
+         title: "AI Image Creation",
+         description: "Created 50+ AI-generated images for Instagram and Threads.",
+         posterUrl: "https://example.com/posters/ai-image-creation.jpg",
+         videoUrl: "https://example.com/videos/ai-image-creation.mp4",
+         details: "Produced vibrant, futuristic visuals for social media using MidJourney and OpenArt.ai."
+       },
+       {
+         id: "ai-video-showcase",
+         title: "AI Video Showcase",
+         description: "Created a stunning AI-generated video for YouTube, showcasing advanced content creation.",
+         posterUrl: "https://example.com/posters/ai-video-showcase.jpg",
+         videoUrl: "https://www.youtube.com/embed/3lsCqz52YMc",
+         details: "Developed a cinematic video using AI tools like Runway or Kaiber, published on YouTube."
+       }
+     ],
+     allProjects: [
+       {
+         id: "prompt-engineering",
+         title: "Prompt Engineering Mastery",
+         description: "Developed precise prompts for ChatGPT, MidJourney, Runway, Kaiber, D-ID.",
+         posterUrl: "https://example.com/posters/prompt-engineering.jpg",
+         videoUrl: "https://example.com/videos/prompt-engineering.mp4",
+         details: "Crafted prompts to generate text, images, and videos."
+       },
+       {
+         id: "ai-image-creation",
+         title: "AI Image Creation",
+         description: "Created 50+ AI-generated images for Instagram and Threads.",
+         posterUrl: "https://example.com/posters/ai-image-creation.jpg",
+         videoUrl: "https://example.com/videos/ai-image-creation.mp4",
+         details: "Produced vibrant visuals for social media."
+       },
+       {
+         id: "ai-video-production",
+         title: "AI Video Production",
+         description: "Developed videos using OpenArt.ai, Runway, and VEO3.",
+         posterUrl: "https://example.com/posters/ai-video-production.jpg",
+         videoUrl: "https://example.com/videos/ai-video-production.mp4",
+         details: "Created cinematic AI-generated videos."
+       },
+       {
+         id: "ai-video-showcase",
+         title: "AI Video Showcase",
+         description: "Created a stunning AI-generated video for YouTube, showcasing advanced content creation.",
+         posterUrl: "https://example.com/posters/ai-video-showcase.jpg",
+         videoUrl: "https://www.youtube.com/embed/3lsCqz52YMc",
+         details: "Developed a cinematic video using AI tools like Runway or Kaiber, published on YouTube."
+       },
+       {
+         id: "photo-animation",
+         title: "Realistic Photo Animation",
+         description: "Experimented with lifelike animations via D-ID, Kaiber, Runway.",
+         posterUrl: "https://example.com/posters/photo-animation.jpg",
+         videoUrl: "https://example.com/videos/photo-animation.mp4",
+         details: "Animated realistic photos for dynamic storytelling."
+       },
+       {
+         id: "voice-agent",
+         title: "Voice Agent Development",
+         description: "Built voice agents using ElevenLabs.",
+         posterUrl: "https://example.com/posters/voice-agent.jpg",
+         videoUrl: "https://example.com/videos/voice-agent.mp4",
+         details: "Developed natural-sounding voice agents for interactive applications."
+       },
+       {
+         id: "github-portfolio",
+         title: "AI Portfolio on GitHub",
+         description: "Showcased AI projects and prompt database on GitHub.",
+         posterUrl: "https://example.com/posters/github-portfolio.jpg",
+         videoUrl: "https://example.com/videos/github-portfolio.mp4",
+         details: "Built a comprehensive portfolio: github.com/naTa160589/natalia-tereshchenko-portfolio."
+       },
+       {
+         id: "prompt-course",
+         title: "Prompt Engineering Course",
+         description: "Completing NGO Support for Ukraine’s Prompt Engineering Course (2025).",
+         posterUrl: "https://example.com/posters/prompt-course.jpg",
+         videoUrl: "https://example.com/videos/prompt-course.mp4",
+         details: "Studied advanced prompt engineering techniques."
+       },
+       {
+         id: "daily-ai",
+         title: "Daily AI Practice",
+         description: "1–2 hours daily experimenting with AI tools.",
+         posterUrl: "https://example.com/posters/daily-ai.jpg",
+         videoUrl: "https://example.com/videos/daily-ai.mp4",
+         details: "Developed a consistent practice to master AI workflows."
+       }
+     ],
+     blogs: [
+       {
+         id: "blog-placeholder",
+         title: "AI Content Creation Tips",
+         description: "Insights on using AI tools for creative projects (coming soon).",
+         posterUrl: "https://example.com/posters/blog-placeholder.jpg",
+         details: "Blog post on best practices for MidJourney, Runway, and ElevenLabs."
+       }
+     ],
+     contact: [
+       {
+         id: "email",
+         title: "Email Me",
+         description: "Reach out for collaborations or inquiries.",
+         posterUrl: "https://example.com/posters/email.jpg",
+         link: "mailto:[your-email]"
+       },
+       {
+         id: "phone",
+         title: "Call Me",
+         description: "Contact me for project discussions.",
+         posterUrl: "https://example.com/posters/phone.jpg",
+         link: "tel:[your-number]"
+       },
+       {
+         id: "github",
+         title: "GitHub Profile",
+         description: "Explore my AI projects and prompt database.",
+         posterUrl: "https://example.com/posters/github.jpg",
+         link: "https://github.com/naTa160589/natalia-tereshchenko-portfolio"
+       }
+     ]
+   };
 
-/* Hero Section */
-.hero {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
+   const Poster = ({ item, onClick }) => (
+     <div
+       className="relative w-48 h-72 mx-2 cursor-pointer transform hover:scale-105 transition-transform duration-300"
+       onClick={() => onClick(item)}
+     >
+       <img src={item.posterUrl} alt={item.title} className="w-full h-full object-cover rounded-lg border-2 border-cyan-400" />
+       <div className="absolute bottom-0 w-full bg-black bg-opacity-70 text-cyan-400 text-center py-2 font-['Orbitron'] text-sm">
+         {item.title}
+       </div>
+     </div>
+   );
 
-.hero video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
+   const ProjectPopup = ({ item, onClose }) => (
+     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+       <div className="bg-gray-900 p-6 rounded-lg w-11/12 md:w-1/2 text-white">
+         <button onClick={onClose} className="absolute top-4 right-4 text-2xl text-cyan-400">×</button>
+         <h2 className="text-2xl font-['Orbitron'] text-cyan-400 mb-4">{item.title}</h2>
+         {item.videoUrl && (
+           item.id === "ai-video-showcase" ? (
+             <iframe
+               className="w-full h-64 mb-4 rounded-lg"
+               src={item.videoUrl}
+               title={item.title}
+               frameBorder="0"
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+               allowFullScreen
+             ></iframe>
+           ) : (
+             <video className="w-full h-64 object-cover mb-4 rounded-lg" controls>
+               <source src={item.videoUrl} type="video/mp4" />
+             </video>
+           )
+         )}
+         <p className="mb-4 text-gray-300">{item.description}</p>
+         <p className="mb-4 text-gray-300">{item.details}</p>
+         {item.link && (
+           <a href={item.link} className="text-cyan-400 underline font-bold" target="_blank" rel="noopener noreferrer">
+             {item.title === "GitHub Profile" ? "Visit GitHub" : "Contact"}
+           </a>
+         )}
+       </div>
+     </div>
+   );
 
-.hero .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Netflix-style dark overlay */
-  z-index: 2;
-}
+   const Portfolio = () => {
+     const [selectedItem, setSelectedItem] = useState(null);
+     const [data] = useState(portfolioData);
 
-.hero .content {
-  position: relative;
-  z-index: 3;
-}
+     return (
+       <div className="bg-black text-white min-h-screen">
+         {/* Hero Section */}
+         <div className="relative h-screen flex items-center justify-center">
+           <video
+             className="absolute inset-0 w-full h-full object-cover"
+             src={data.hero.videoUrl}
+             autoPlay
+             loop
+             muted
+           />
+           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+           <div className="relative z-10 text-center">
+             <h1 className="text-5xl md:text-7xl font-['Orbitron'] text-cyan-400" style={{ textShadow: '0 0 10px #00e5ff' }}>
+               {data.hero.title}
+             </h1>
+             <p className="text-xl md:text-2xl mt-4 text-gray-300">{data.hero.description}</p>
+           </div>
+         </div>
 
-.hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 3.5rem;
-  color: #00f7ff; /* Neon blue */
-  text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff; /* Sci-fi glow */
-  margin-bottom: 1rem;
-}
+         {/* Featured Projects */}
+         <div className="py-8 px-4">
+           <h2 className="text-3xl font-['Orbitron'] text-cyan-400 mb-4">Featured Projects</h2>
+           <div className="flex overflow-x-auto pb-4">
+             {data.featuredProjects.map(item => (
+               <Poster key={item.id} item={item} onClick={setSelectedItem} />
+             ))}
+           </div>
+         </div>
 
-.hero p {
-  font-size: 1.5rem;
-  color: #c0c0c0; /* Silver */
-  max-width: 600px;
-  margin: 0 auto;
-}
+         {/* All Projects */}
+         <div className="py-8 px-4">
+           <h2 className="text-3xl font-['Orbitron'] text-cyan-400 mb-4">All Projects</h2>
+           <div className="flex overflow-x-auto pb-4">
+             {data.allProjects.map(item => (
+               <Poster key={item.id} item={item} onClick={setSelectedItem} />
+             ))}
+           </div>
+         </div>
 
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-  .hero p {
-    font-size: 1.2rem;
-  }
-}
+         {/* Blogs */}
+         <div className="py-8 px-4">
+           <h2 className="text-3xl font-['Orbitron'] text-cyan-400 mb-4">Blogs</h2>
+           <div className="flex overflow-x-auto pb-4">
+             {data.blogs.map(item => (
+               <Poster key={item.id} item={item} onClick={setSelectedItem} />
+             ))}
+           </div>
+         </div>
 
-/* Section Rows */
-.section {
-  padding: 2rem 1rem;
-}
+         {/* Contact Me */}
+         <div className="py-8 px-4">
+           <h2 className="text-3xl font-['Orbitron'] text-cyan-400 mb-4">Contact Me</h2>
+           <div className="flex overflow-x-auto pb-4">
+             {data.contact.map(item => (
+               <Poster key={item.id} item={item} onClick={setSelectedItem} />
+             ))}
+           </div>
+         </div>
 
-.section h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2rem;
-  color: #00f7ff;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 5px #00e5ff;
-}
+         {/* Popup Modal */}
+         {selectedItem && <ProjectPopup item={selectedItem} onClose={() => setSelectedItem(null)} />}
+       </div>
+     );
+   };
 
-.row {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 1rem;
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-}
-
-.row::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Chrome/Safari */
-}
-
-.poster {
-  flex: 0 0 auto;
-  width: 300px;
-  height: 450px;
-  margin: 0 0.5rem;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #00e5ff; /* Cyan border */
-}
-
-.poster:hover, .poster:focus {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #00e5ff, 0 0 30px #00f7ff; /* Sci-fi glow */
-}
-
-.poster .title {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  color: #00f7ff;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.2rem;
-  text-align: center;
-  padding: 0.5rem;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-@media (max-width: 768px) {
-  .poster {
-    width: 150px;
-    height: 225px;
-  }
-  .poster .title {
-    font-size: 0.9rem;
-  }
-}
-
-/* Popup Modal */
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85); /* Netflix dark overlay */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.popup-content {
-  background: #1c1c1c; /* Darker Netflix background */
-  padding: 2rem;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 600px;
-  position: relative;
-  border: 2px solid #00e5ff;
-  box-shadow: 0 0 20px #00f7ff;
-}
-
-.popup-content button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: #00f7ff;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.popup-content h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.8rem;
-  color: #00f7ff;
-  margin-bottom: 1rem;
-}
-
-.popup-content video {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.popup-content p {
-  font-size: 1rem;
-  color: #c0c0c0;
-  margin-bottom: 1rem;
-}
-
-.popup-content a {
-  color: #00e5ff;
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-@media (max-width: 768px) {
-  .popup-content {
-    padding: 1rem;
-  }
-  .popup-content video {
-    height: 200px;
-  }
-  .popup-content h2 {
-    font-size: 1.5rem;
-  }
-  .popup-content p {
-    font-size: 0.9rem;
-  }
-}
-
-/* Accessibility */
-a:focus, button:focus, .poster:focus {
-  outline: 2px solid #00e5ff;
-  outline-offset: 2px;
-}
-
-/* Hide Tailwind's default scrollbar styles */
-.scrollbar-none {
-  scrollbar-width: none;
-}
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
+   ReactDOM.render(<Portfolio />, document.getElementById('root'));
+ </script>
+</body>
+</html>
